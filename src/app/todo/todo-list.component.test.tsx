@@ -15,9 +15,9 @@ describe('todo list component',() => {
             /* fire events that update state */
             render(<TodoListComponent/>);
         });
-       // (axios.get as jest.Mock).mockResolvedValue({data: mockTodoModel});
-      // (axios.get as jest.Mock).mockImplementation(() => Promise.resolve({ data: {mockTodoModel} }));
-        axios.get = jest.fn().mockResolvedValue(mockTodoModel);
+        // (axios.get as jest.Mock).mockResolvedValue({data: mockTodoModel});
+        const mockedAxios = axios as jest.Mocked<typeof axios>;
+        mockedAxios.get.mockResolvedValue({ data: mockTodoModel });
         const result = await TodoService.getTodolist();
         expect(result).toEqual(mockTodoModel);
         expect(screen.getByText("Not Started")).toBeInTheDocument();
